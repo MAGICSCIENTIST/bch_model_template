@@ -1,0 +1,66 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Bash build docker",
+            "type": "bashdb",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/build.sh",
+            
+        },
+        {
+            "name": "Bash run docker",
+            "type": "bashdb",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/run.sh",
+
+        },       
+        
+        {
+            "name": "Bash test",
+            "type": "bashdb",
+            "request": "launch",            
+            "program": "${file}",                        
+        },
+
+
+
+        // -------------------------- run model ------------------------------------
+        {
+            "name": "test model py",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceRoot}",
+            "justMyCode": false,
+            "args": [                                
+                "--input_path", 
+                "./data/image1.jpg",
+                "./data/image2.jpg",            
+                "--ref_files",
+                "./data/image3.jpg",
+                "--output_path=./output/",
+                "--noise=255",
+                "--seed=23333",
+                // "--is_valid=True",
+                "--is_valid=False",
+                
+            ]
+        },
+        // -------------------------- run model end ------------------------------------
+    ]
+}

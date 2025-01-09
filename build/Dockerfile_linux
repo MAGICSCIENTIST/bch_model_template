@@ -1,0 +1,49 @@
+
+
+# 使用官方的 Python 镜像作为基础镜像
+# 建议用conda镜像，因为conda可以很好的管理环境，本例子中使用的是miniconda3镜像
+FROM continuumio/miniconda3
+# FROM python:3.8-alpine # 使用alpine镜像，镜像体积小，但是不支持conda环境管理，需要自己安装依赖
+
+# 复制文件到容器中
+COPY ./build/environment.yml /app/
+
+COPY main.py /app/
+COPY utils /app/utils
+COPY build/config.json /app/build/
+
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装图形库，不需要的可以删除
+RUN apt-get update && \
+    apt-get install -y libgl1-mesa-glx && \
+    apt-get clean \
+    apt-get install -y fonts-dejavu 
+
+# # 安装yq命令，curl地址按需修改，主要用于解析yaml文件获取环境名称 TODO: 实现自动获取环境名称
+# RUN apt-get install -y \
+#     curl \
+#     jq \
+#     && curl -s https://github.com/mikefarah/yq/releases/download/v4.13.0/yq_linux_arm64 -o /usr/bin/yq \
+#     && chmod +x /usr/bin/yq
+
+# RUN echo $(yq e '.name' /tmp/environment.yml)
+
+
+# # 配置 conda 源为国内镜像（清华源）有需要的可以打开
+# RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
+#     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
+#     conda config --set show_channel_urls yes
+
+
+# 安装所需的 conda 环境，假设你有 environment.yml 文件
+RUN conda env create -f /app/environment.yml
+RUN conda clean --all -y
+
+# RUN pip install opencv-python-headless
+
+# 设置默认执行命令，指定入口点为 predict.py
+# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", (yq e '.name' /app/environment.yml), "python", "main.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "lfcd", "python", "main.py"]

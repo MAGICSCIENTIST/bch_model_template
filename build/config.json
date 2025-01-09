@@ -1,0 +1,52 @@
+{
+    "version": "1.0.0",
+    "args": {
+        "input_path": {
+            "name": "输入数据",
+            "type": "file",
+            "required": true,
+            "description": "输入数据路径,shp请选全"
+        },
+        "ref_files": {
+            "name": "输入数据2",
+            "type": "file",
+            "required": false,
+            "description": "输入数据路径2"
+        },
+        "output_path": {
+            "name": "输出路径",
+            "type": "string",
+            "required": true,
+            "description": "输出路径"
+        },
+        "noise": {
+            "name": "噪声",
+            "type": "double",
+            "required": false,
+            "default": 0.1,
+            "description": "噪声"
+        },
+        "seed": {
+            "name": "种子",
+            "type": "int",
+            "required": false,
+            "default": 1,
+            "description": "种子"
+        },
+        "is_valid":{
+            "name": "分支",
+            "type": "bool",
+            "required": true,
+            "default": false,
+            "description": "分支"
+        
+        }   
+    },
+    "inputFiles": [
+        "input_path,input_path2"
+    ],
+    "outputFiles": [
+        "output_path"
+    ],
+    "imageName": "image_fuzz"
+}
