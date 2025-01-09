@@ -1,6 +1,6 @@
-# bch_model_template
+# fim_model_template
 [TOC]
-- [bch\_model\_template](#bch_model_template)
+- [fim\_model\_template](#fim_model_template)
   - [简介](#简介)
   - [使用方法](#使用方法)
     - [1. 安装依赖](#1-安装依赖)
