@@ -43,7 +43,7 @@
         }   
     },
     "inputFiles": [
-        "input_path,input_path2"
+        "input_path,ref_files"
     ],
     "outputFiles": [
         "output_path"
